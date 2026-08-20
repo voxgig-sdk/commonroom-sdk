@@ -1,0 +1,20 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 1
+  metrics: count: path: 2
+  metrics: count: method: 2
+
+  entity: member: {
+    path: "/{communityId}/members": {
+      rename: param: "communityId": *"community_id"
+      op: list: method: *GET
+      op: list: transform: res: *("`body.data`")|top
+    }
+    path: "/{communityId}/members/{id}": {
+      rename: param: "communityId": *"community_id"
+      op: load: method: *GET
+    }
+  }
+
+}

@@ -1,0 +1,49 @@
+# BasicMemberFlow
+
+main: kit: flow: BasicMemberFlow:
+{
+  entity: "member",
+  kind: "basic",
+  name: "BasicMemberFlow",
+  step: [
+    {
+      match: {
+        community_id: "community01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "member_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "member_ref01",
+        srcdatavar: "member_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        community_id: "community01",
+        id: "member01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-member_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicMemberFlow"
+}

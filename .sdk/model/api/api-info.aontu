@@ -1,0 +1,27 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      description: "List and read Common Room community members."
+      security: {
+        in: "header"
+        name: "Authorization"
+        prefix: "Bearer"
+        scheme: "bearerAuth"
+        type: "http"
+      }
+      servers: [
+        {
+          url: "https://api.commonroom.io/community/v1"
+        }
+      ]
+      summary: "List and read Common Room community members."
+      title: "Common Room Community API"
+      version: "1.0.0"
+      website: "https://commonroom.io"
+    }
+  }
+}
+

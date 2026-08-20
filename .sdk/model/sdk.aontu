@@ -1,0 +1,46 @@
+
+# Model definitions.
+@"@voxgig/apidef/model/apidef.aontu"
+@"@voxgig/sdkgen/model/sdkgen.aontu"
+
+
+# SDK Details.
+name: 'commonroom'
+origin: 'voxgig-sdk'
+def: 'commonroom-members-only.json'
+
+
+# API Information
+@"api/api-info.aontu"
+
+
+# SDK Configuration.
+@"config.aontu"
+
+
+# SDK Entities
+@"entity/entity-index.aontu"
+
+
+# SDK Features.
+@"feature/feature-index.aontu"
+ 
+
+# SDK Targets.
+@"target/target-index.aontu"
+
+
+# Operation workflows.
+@"flow/flow-index.aontu"
+
+
+# Seneca provider plugin generates out-of-tree into the sibling repo.
+# adopt: true — this is a fork of the real senecajs repo (its hand-written
+# source was broken/mislabeled), kept .github/.gitignore/LICENSE
+# on purpose rather than starting from an empty folder.
+main: kit: target: 'seneca-provider': output: {
+  path: '../../seneca/commonroom-provider'
+  sdkrel: '../../voxgig-sdk/commonroom-sdk'
+  adopt: true
+}
+

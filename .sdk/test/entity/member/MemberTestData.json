@@ -1,0 +1,44 @@
+{
+  "existing": {
+    "member": {
+      "MEMBER00": {
+        "email": "s3c",
+        "id": "MEMBER00",
+        "name": "s3e",
+        "organization": "s3f",
+        "score": 64,
+        "tags": [],
+        "community_id": "COMMUNITY01"
+      },
+      "MEMBER01": {
+        "email": "s78",
+        "id": "MEMBER01",
+        "name": "s7a",
+        "organization": "s7b",
+        "score": 124,
+        "tags": [],
+        "community_id": "COMMUNITY01"
+      },
+      "MEMBER02": {
+        "email": "sb4",
+        "id": "MEMBER02",
+        "name": "sb6",
+        "organization": "sb7",
+        "score": 184,
+        "tags": [],
+        "community_id": "COMMUNITY01"
+      }
+    }
+  },
+  "new": {
+    "member": {
+      "member_ref01": {
+        "email": "sf0",
+        "name": "sf2",
+        "organization": "sf3",
+        "score": 244,
+        "tags": []
+      }
+    }
+  }
+}
