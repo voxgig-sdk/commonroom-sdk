@@ -34,10 +34,8 @@ def: 'commonroom-members-only.json'
 @"flow/flow-index.aontu"
 
 
-# Seneca provider plugin generates out-of-tree into the sibling repo.
-# adopt: true — this is a fork of the real senecajs repo (its hand-written
-# source was broken/mislabeled), kept .github/.gitignore/LICENSE
-# on purpose rather than starting from an empty folder.
+# adopt: true — fork of the real senecajs repo; keeps its .github/LICENSE
+# etc. instead of generating into an empty folder.
 main: kit: target: 'seneca-provider': output: {
   path: '../../seneca/commonroom-provider'
   sdkrel: '../../voxgig-sdk/commonroom-sdk'
