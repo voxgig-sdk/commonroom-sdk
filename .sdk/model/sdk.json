@@ -1,6 +1,15 @@
 {
+  "NAME": "COMMONROOM",
+  "Name": "Commonroom",
   "def": "commonroom-members-only.json",
   "main": {
+    "api": {
+      "entity": {},
+      "guide": {}
+    },
+    "custom": {
+      "plurals": {}
+    },
     "def": {
       "desc": ""
     },
@@ -910,5 +919,8 @@
     }
   },
   "name": "commonroom",
+  "name-": "commonroom",
+  "name_": "commonroom",
+  "name__orig": "commonroom",
   "origin": "voxgig-sdk"
 }
