@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -95,6 +106,10 @@ class Config {
           "type": "`$ARRAY`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "member",
       "op": {
         "list": {
@@ -124,15 +139,19 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/{communityId}/members",
-              "parts": [
-                "{community_id}",
-                "members"
-              ],
               "rename": {
                 "param": {
                   "communityId": "community_id"
                 }
               },
+              "segments": [
+                {
+                  "var": "community_id"
+                },
+                {
+                  "lit": "members"
+                }
+              ],
               "select": {
                 "exist": [
                   "community_id",
@@ -142,7 +161,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body.data`"
-              }
+              },
+              "parts": [
+                "{community_id}",
+                "members"
+              ]
             }
           ]
         },
@@ -172,16 +195,22 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/{communityId}/members/{id}",
-              "parts": [
-                "{community_id}",
-                "members",
-                "{id}"
-              ],
               "rename": {
                 "param": {
                   "communityId": "community_id"
                 }
               },
+              "segments": [
+                {
+                  "var": "community_id"
+                },
+                {
+                  "lit": "members"
+                },
+                {
+                  "var": "id"
+                }
+              ],
               "select": {
                 "exist": [
                   "community_id",
@@ -191,7 +220,12 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "{community_id}",
+                "members",
+                "{id}"
+              ]
             }
           ]
         }
@@ -207,6 +241,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

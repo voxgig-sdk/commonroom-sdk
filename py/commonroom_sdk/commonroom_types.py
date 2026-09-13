@@ -30,5 +30,9 @@ class MemberLoadMatch(TypedDict):
     id: str
 
 
-class MemberListMatch(TypedDict):
+class MemberListMatchRequired(TypedDict):
     community_id: str
+
+
+class MemberListMatch(MemberListMatchRequired, total=False):
+    limit: int

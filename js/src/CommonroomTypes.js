@@ -25,5 +25,6 @@
 /**
  * @typedef {Object} MemberListMatch
  * @property {string} community_id
+ * @property {number} [limit]
  */
 

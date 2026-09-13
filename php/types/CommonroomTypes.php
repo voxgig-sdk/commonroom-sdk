@@ -34,5 +34,6 @@ class MemberLoadMatch
 class MemberListMatch
 {
     public string $community_id;
+    public ?int $limit = null;
 }
 

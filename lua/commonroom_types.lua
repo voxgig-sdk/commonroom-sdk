@@ -20,6 +20,7 @@
 
 ---@class MemberListMatch
 ---@field community_id string
+---@field limit? number
 
 local M = {}
 

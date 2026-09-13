@@ -1,6 +1,14 @@
 # Commonroom SDK configuration
 
 
+# The sekreto plugin DEFINITIONS the model selected per feature, imported
+# above by name from the modules the catalogue's active `plugin.def`
+# entries declare. Handed to each feature (secrets builds its Sekreto
+# with them): a provider kind not listed here is unknown to that SDK.
+FEATURE_PLUGINS = {
+}
+
+
 _shared_config = None
 
 
@@ -80,6 +88,10 @@ def make_config():
             "type": "`$ARRAY`",
           },
         ],
+        "id": {
+          "field": "id",
+          "name": "id",
+        },
         "name": "member",
         "op": {
           "list": {
@@ -109,15 +121,19 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/{communityId}/members",
-                "parts": [
-                  "{community_id}",
-                  "members",
-                ],
                 "rename": {
                   "param": {
                     "communityId": "community_id",
                   },
                 },
+                "segments": [
+                  {
+                    "var": "community_id",
+                  },
+                  {
+                    "lit": "members",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "community_id",
@@ -128,6 +144,10 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body.data`",
                 },
+                "parts": [
+                  "{community_id}",
+                  "members",
+                ],
               },
             ],
           },
@@ -157,16 +177,22 @@ def make_config():
                 "kind": "http",
                 "method": "GET",
                 "orig": "/{communityId}/members/{id}",
-                "parts": [
-                  "{community_id}",
-                  "members",
-                  "{id}",
-                ],
                 "rename": {
                   "param": {
                     "communityId": "community_id",
                   },
                 },
+                "segments": [
+                  {
+                    "var": "community_id",
+                  },
+                  {
+                    "lit": "members",
+                  },
+                  {
+                    "var": "id",
+                  },
+                ],
                 "select": {
                   "exist": [
                     "community_id",
@@ -177,6 +203,11 @@ def make_config():
                   "req": "`reqdata`",
                   "res": "`body`",
                 },
+                "parts": [
+                  "{community_id}",
+                  "members",
+                  "{id}",
+                ],
               },
             ],
           },

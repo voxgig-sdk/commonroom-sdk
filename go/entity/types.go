@@ -31,6 +31,7 @@ type MemberLoadMatch struct {
 // MemberListMatch is the typed request payload for Member.ListTyped.
 type MemberListMatch struct {
 	CommunityId string `json:"community_id"`
+	Limit *int `json:"limit,omitempty"`
 }
 
 // asMap turns a typed request/data struct into the map[string]any the

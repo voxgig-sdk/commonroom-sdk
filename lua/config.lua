@@ -59,6 +59,10 @@ local function make_config()
             ["type"] = "`$ARRAY`",
           },
         },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
+        },
         ["name"] = "member",
         ["op"] = {
           ["list"] = {
@@ -88,13 +92,17 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/{communityId}/members",
-                ["parts"] = {
-                  "{community_id}",
-                  "members",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["communityId"] = "community_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["var"] = "community_id",
+                  },
+                  {
+                    ["lit"] = "members",
                   },
                 },
                 ["select"] = {
@@ -106,6 +114,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body.data`",
+                },
+                ["parts"] = {
+                  "{community_id}",
+                  "members",
                 },
               },
             },
@@ -136,14 +148,20 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/{communityId}/members/{id}",
-                ["parts"] = {
-                  "{community_id}",
-                  "members",
-                  "{id}",
-                },
                 ["rename"] = {
                   ["param"] = {
                     ["communityId"] = "community_id",
+                  },
+                },
+                ["segments"] = {
+                  {
+                    ["var"] = "community_id",
+                  },
+                  {
+                    ["lit"] = "members",
+                  },
+                  {
+                    ["var"] = "id",
                   },
                 },
                 ["select"] = {
@@ -155,6 +173,11 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "{community_id}",
+                  "members",
+                  "{id}",
                 },
               },
             },

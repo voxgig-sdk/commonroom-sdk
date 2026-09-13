@@ -85,6 +85,10 @@ class CommonroomConfig
               'type' => '`$ARRAY`',
             ],
           ],
+          'id' => [
+            'field' => 'id',
+            'name' => 'id',
+          ],
           'name' => 'member',
           'op' => [
             'list' => [
@@ -114,13 +118,17 @@ class CommonroomConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/{communityId}/members',
-                  'parts' => [
-                    '{community_id}',
-                    'members',
-                  ],
                   'rename' => [
                     'param' => [
                       'communityId' => 'community_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'var' => 'community_id',
+                    ],
+                    [
+                      'lit' => 'members',
                     ],
                   ],
                   'select' => [
@@ -132,6 +140,10 @@ class CommonroomConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body.data`',
+                  ],
+                  'parts' => [
+                    '{community_id}',
+                    'members',
                   ],
                 ],
               ],
@@ -162,14 +174,20 @@ class CommonroomConfig
                   'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/{communityId}/members/{id}',
-                  'parts' => [
-                    '{community_id}',
-                    'members',
-                    '{id}',
-                  ],
                   'rename' => [
                     'param' => [
                       'communityId' => 'community_id',
+                    ],
+                  ],
+                  'segments' => [
+                    [
+                      'var' => 'community_id',
+                    ],
+                    [
+                      'lit' => 'members',
+                    ],
+                    [
+                      'var' => 'id',
                     ],
                   ],
                   'select' => [
@@ -181,6 +199,11 @@ class CommonroomConfig
                   'transform' => [
                     'req' => '`reqdata`',
                     'res' => '`body`',
+                  ],
+                  'parts' => [
+                    '{community_id}',
+                    'members',
+                    '{id}',
                   ],
                 ],
               ],

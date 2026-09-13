@@ -2,7 +2,7 @@
 const envlocal = __dirname + '/../../../.env.local'
 require('dotenv').config({ quiet: true, path: [envlocal] })
 
-const { test, describe } = require('node:test')
+const { test, describe, afterEach } = require('node:test')
 const assert = require('node:assert')
 
 
@@ -10,10 +10,16 @@ const { CommonroomSDK } = require('../../..')
 
 const {
   envOverride,
+  liveClientOptions,
+  liveDelay,
 } = require('../../utility')
 
 
 describe('MemberDirect', async () => {
+
+  // Per-test live pacing. Delay is read from sdk-test-control.json's
+  // `test.live.delayMs`; only sleeps when COMMONROOM_TEST_LIVE=TRUE.
+  afterEach(liveDelay('COMMONROOM_TEST_LIVE'))
 
   test('direct-exists', async () => {
     const sdk = new CommonroomSDK({
@@ -111,15 +117,18 @@ function directSetup(mockres) {
   const env = envOverride({
     'COMMONROOM_TEST_MEMBER_ENTID': {},
     'COMMONROOM_TEST_LIVE': 'FALSE',
-    'COMMONROOM_APIKEY': 'NONE',
+    'COMMONROOM_APIKEY': '',
   })
 
   const live = 'TRUE' === env.COMMONROOM_TEST_LIVE
 
   if (live) {
-    const client = new CommonroomSDK({
+    // Merged so the generated fields win: sdk-test-control.json's
+    // test.client.options adds to the live client, it does not redirect it.
+    const client = new CommonroomSDK(
+      Object.assign({}, liveClientOptions(), {
       apikey: env.COMMONROOM_APIKEY,
-    })
+      }))
 
     let idmap = env['COMMONROOM_TEST_MEMBER_ENTID']
     if ('string' === typeof idmap && idmap.startsWith('{')) {

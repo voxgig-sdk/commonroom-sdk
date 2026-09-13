@@ -12,4 +12,5 @@ export interface MemberLoadMatch {
 }
 export interface MemberListMatch {
     community_id: string;
+    limit?: number;
 }

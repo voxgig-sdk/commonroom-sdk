@@ -70,15 +70,19 @@ main: kit: entity: member: {
           }
           method: "GET"
           orig: "/{communityId}/members"
-          parts: [
-            "{community_id}"
-            "members"
-          ]
           rename: {
             param: {
               communityId: "community_id"
             }
           }
+          segments: [
+            {
+              var: "community_id"
+            }
+            {
+              lit: "members"
+            }
+          ]
           select: {
             exist: [
               "community_id"
@@ -116,16 +120,22 @@ main: kit: entity: member: {
           }
           method: "GET"
           orig: "/{communityId}/members/{id}"
-          parts: [
-            "{community_id}"
-            "members"
-            "{id}"
-          ]
           rename: {
             param: {
               communityId: "community_id"
             }
           }
+          segments: [
+            {
+              var: "community_id"
+            }
+            {
+              lit: "members"
+            }
+            {
+              var: "id"
+            }
+          ]
           select: {
             exist: [
               "community_id"

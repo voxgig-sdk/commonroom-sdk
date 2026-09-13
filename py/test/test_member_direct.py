@@ -120,15 +120,18 @@ def _member_direct_setup(mockres):
     env = runner.env_override({
         "COMMONROOM_TEST_MEMBER_ENTID": {},
         "COMMONROOM_TEST_LIVE": "FALSE",
-        "COMMONROOM_APIKEY": "NONE",
+        "COMMONROOM_APIKEY": "",
     })
 
     live = env.get("COMMONROOM_TEST_LIVE") == "TRUE"
 
     if live:
-        merged_opts = {
+        # sdk-test-control.json's test.client.options seeds the live
+        # client; the generated fields below overwrite anything they name.
+        merged_opts = dict(runner.live_client_options())
+        merged_opts.update({
             "apikey": env.get("COMMONROOM_APIKEY"),
-        }
+        })
         client = CommonroomSDK(merged_opts)
         return {
             "client": client,

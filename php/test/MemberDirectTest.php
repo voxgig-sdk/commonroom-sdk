@@ -138,15 +138,17 @@ function member_direct_setup($mockres)
     $env = Runner::env_override([
         "COMMONROOM_TEST_MEMBER_ENTID" => [],
         "COMMONROOM_TEST_LIVE" => "FALSE",
-        "COMMONROOM_APIKEY" => "NONE",
+        "COMMONROOM_APIKEY" => "",
     ]);
 
     $live = $env["COMMONROOM_TEST_LIVE"] === "TRUE";
 
     if ($live) {
-        $merged_opts = [
+        // Merged so the generated fields win: sdk-test-control.json's
+        // test.client.options adds to the live client, it does not redirect it.
+        $merged_opts = array_merge(Runner::live_client_options(), [
             "apikey" => $env["COMMONROOM_APIKEY"],
-        ];
+        ]);
         $client = new CommonroomSDK($merged_opts);
         return [
             "client" => $client,

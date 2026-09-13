@@ -98,7 +98,7 @@ func TestMemberEntity(t *testing.T) {
 		client := setup.client
 
 		// Bootstrap entity data from existing test data (no create step in flow).
-		memberRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath("existing.member", setup.data)))
+		memberRef01DataRaw := vs.Items(core.ToMapAny(vs.GetPath(setup.data, "existing.member")))
 		var memberRef01Data map[string]any
 		if len(memberRef01DataRaw) > 0 {
 			memberRef01Data = core.ToMapAny(memberRef01DataRaw[0][1])
@@ -165,7 +165,7 @@ func memberBasicSetup(extra map[string]any) *entityTestSetup {
 	client := sdk.TestSDK(options, extra)
 
 	// Generate idmap via transform, matching TS pattern.
-	idmap := vs.Transform(
+	idmap, _ := vs.Transform(
 		[]any{"member01", "member02", "member03", "community01"},
 		map[string]any{
 			"`$PACK`": []any{"", map[string]any{
@@ -185,7 +185,7 @@ func memberBasicSetup(extra map[string]any) *entityTestSetup {
 		"COMMONROOM_TEST_MEMBER_ENTID": idmap,
 		"COMMONROOM_TEST_LIVE":      "FALSE",
 		"COMMONROOM_TEST_EXPLAIN":   "FALSE",
-		"COMMONROOM_APIKEY":         "NONE",
+		"COMMONROOM_APIKEY":         "",
 	})
 
 	idmapResolved := core.ToMapAny(env["COMMONROOM_TEST_MEMBER_ENTID"])
@@ -194,11 +194,23 @@ func memberBasicSetup(extra map[string]any) *entityTestSetup {
 	}
 
 	if env["COMMONROOM_TEST_LIVE"] == "TRUE" {
+		// An empty map, not a nil one: Merge returns nil when its last entry
+		// is nil, and BasicSetup is normally called with no extras - so a
+		// bare nil silently discarded the apikey and server values below.
+		extraOpts := extra
+		if extraOpts == nil {
+			extraOpts = map[string]any{}
+		}
+
 		mergedOpts := vs.Merge([]any{
+			// liveClientOptions() FIRST, so the generated fields below win:
+			// sdk-test-control.json's test.client.options adds to the live
+			// client, it does not redirect it.
+			liveClientOptions(),
 			map[string]any{
 				"apikey": env["COMMONROOM_APIKEY"],
 			},
-			extra,
+			extraOpts,
 		})
 		client = sdk.NewCommonroomSDK(core.ToMapAny(mergedOpts))
 	}

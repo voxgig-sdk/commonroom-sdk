@@ -145,7 +145,7 @@ function member_basic_setup(extra)
     ["COMMONROOM_TEST_MEMBER_ENTID"] = idmap,
     ["COMMONROOM_TEST_LIVE"] = "FALSE",
     ["COMMONROOM_TEST_EXPLAIN"] = "FALSE",
-    ["COMMONROOM_APIKEY"] = "NONE",
+    ["COMMONROOM_APIKEY"] = "",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -156,6 +156,9 @@ function member_basic_setup(extra)
 
   if env["COMMONROOM_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
+      -- FIRST, so the generated fields below win: sdk-test-control.json's
+      -- test.client.options adds to the live client, it does not redirect it.
+      runner.live_client_options(),
       {
         apikey = env["COMMONROOM_APIKEY"],
       },
